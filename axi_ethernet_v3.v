@@ -508,7 +508,7 @@ module axi_ethernet_v3 #(
   end
 
   //TX tlast generation
-  assign tx_udp_payload_axis_tlast = (tx_count == cfg_regs[8][15:0]/*tx_udp_length*/ & tx_udp_payload_axis_tvalid);
+  assign tx_udp_payload_axis_tlast = (tx_count == tx_udp_length & tx_udp_payload_axis_tvalid);
   /*
   always @ (posedge phy_clk) begin
     if (phy_rst)
@@ -635,29 +635,20 @@ module axi_ethernet_v3 #(
 		.rx_udp_payload_axis_tdata		(rx_udp_payload_axis_tdata),
 		.rx_udp_payload_axis_tlast		(rx_udp_payload_axis_tlast),
 
-		//.local_mac										({local_mac1[15:0], local_mac0}),
-    .local_mac										({cfg_regs[1][15:0], cfg_regs[0]}),
-		//.local_ip											(local_ip),
-    .local_ip											(cfg_regs[2]),
-		//.gateway_ip										(gateway_ip),
-    .gateway_ip										(cfg_regs[3]),
-		//.subnet_mask									(subnet_mask),
-    .subnet_mask									(cfg_regs[4]),
+		.local_mac										({local_mac1[15:0], local_mac0}),
+		.local_ip											(local_ip),
+		.gateway_ip										(gateway_ip),
+		.subnet_mask									(subnet_mask),
 		
 		.tx_udp_ip_dscp								(0),
 		.tx_udp_ip_ecn								(0),
 		.tx_udp_ip_ttl								(8'd64),
 		
-		//.tx_udp_ip_source_ip					(local_ip),
-    .tx_udp_ip_source_ip					(cfg_regs[2]),
-		//.tx_udp_ip_dest_ip						(tx_dst_ip),
-    .tx_udp_ip_dest_ip						(cfg_regs[5]),
-		//.tx_udp_source_port						(tx_src_port[15:0]),
-    .tx_udp_source_port						(cfg_regs[6][15:0]),
-		//.tx_udp_dest_port							(tx_dst_port[15:0]),
-    .tx_udp_dest_port							(cfg_regs[7][15:0]),
-		//.tx_udp_length								(tx_udp_length[15:0]),
-    .tx_udp_length								(cfg_regs[8][15:0]),
+		.tx_udp_ip_source_ip					(local_ip),
+		.tx_udp_ip_dest_ip						(tx_dst_ip),
+		.tx_udp_source_port						(tx_src_port[15:0]),
+		.tx_udp_dest_port							(tx_dst_port[15:0]),
+		.tx_udp_length								(tx_udp_length[15:0]),
 		.tx_udp_checksum							(0),
     .rx_udp_length                (rx_udp_length),
 
