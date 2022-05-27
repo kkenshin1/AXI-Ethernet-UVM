@@ -1,11 +1,11 @@
-`ifndef ETH_SYS_AXI_BURST_READ_TEST_SV
-`define ETH_SYS_AXI_BURST_READ_TEST_SV
+`ifndef ETH_SYS_REG_ACCESS_TEST_SV
+`define ETH_SYS_REG_ACCESS_TEST_SV
 
-class eth_sys_axi_burst_read_test extends eth_sys_base_test;
+class eth_sys_reg_access_test extends eth_sys_base_test;
 
-  `uvm_component_utils(eth_sys_axi_burst_read_test)
+  `uvm_component_utils(eth_sys_reg_access_test)
 
-  function new(string name = "eth_sys_axi_burst_read_test", uvm_component parent);
+  function new(string name = "eth_sys_reg_access_test", uvm_component parent);
     super.new(name, parent);
   endfunction
 
@@ -16,7 +16,7 @@ class eth_sys_axi_burst_read_test extends eth_sys_base_test;
   endfunction
 
   task run_phase(uvm_phase phase);
-    eth_sys_axi_burst_read_virt_seq seq = eth_sys_axi_burst_read_virt_seq::type_id::create("seq");
+    eth_sys_reg_access_virt_seq seq = eth_sys_reg_access_virt_seq::type_id::create("seq");
     phase.raise_objection(this);
     `uvm_info("SEQ", "sequence starting", UVM_LOW)
     seq.start(env.sqr);
@@ -24,7 +24,7 @@ class eth_sys_axi_burst_read_test extends eth_sys_base_test;
     phase.drop_objection(this);
   endtask
 
-endclass: eth_sys_axi_burst_read_test
+endclass: eth_sys_reg_access_test
 
 
 `endif
